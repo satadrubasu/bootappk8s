@@ -1,4 +1,8 @@
 .project 
+target/
+.classpath
+.factorypath
+.settings/
 
 # Compiled class file
 *.class
