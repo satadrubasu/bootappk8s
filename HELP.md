@@ -15,4 +15,48 @@
   
   Start a mongosh session on the same host machine as the mongod. You can run mongosh without any command-line options to connect to a mongod that is running on your localhost with default port 27017.  
   > mongosh
+  
+  
+  ## DockerD
+   > systemctl status docker.service
+   > systemctl restart docker.service
+   
+  
+  ## Stop mongo running on host machine 
+   > systemctl restart docker.service  
+   
+  ## Building the app as container with Dockerfile   
+  
+    >  docker build -t knote-java .
+  
+  
+  ## Create a docker network for connectio napp container and mongo container
+ 
+    > docker network create knote 
     
+  ## Run mongo as a container
+   
+  ``` 
+   docker run \
+  --name=mongo \
+  --rm \
+  --network=knote mongo
+  ```
+
+  ## Running the app container 
+   
+   ```
+   docker run \
+  --name=knote-java \
+  --rm \
+  --network=knote \
+  -p 8080:8080 \
+  -e MONGO_URL=mongodb://mongo:27017/dev \
+  knote-java
+   ```
+ 
+ ## Stopping containers 
+ 
+  >  docker stop mongo knote-java
+  >  docker rm mongo knote-java  
+   
